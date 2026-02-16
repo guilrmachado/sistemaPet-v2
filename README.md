@@ -1,5 +1,4 @@
 
-<<<<<<< HEAD
 #  Sistema PET API
 
 ##  Descrição
@@ -28,16 +27,16 @@ Agora utiliza Spring Boot, Docker e JPA.
 
 
 src
-└── main
-├── java
-│   └── com.guilherme.sistema_pet
-│       ├── controller
-│       ├── model
-│       ├── repository
-│       └── service
-└── resources
-├── application.properties
-└── application-example.properties
+    main
+     java
+       com.guilherme.sistema_pet
+       controller
+       model
+       repository
+       service
+    resources
+    application.properties
+    application-example.properties
 
 
 - model → Entidades do banco de dados
@@ -50,7 +49,9 @@ src
 ##  Configuração
 
 ### Banco de Dados
-O projeto utiliza SQL Server rodando via Docker.
+Opção 1 - Usar banco local
+
+Configure o application.properties com seu SQL Server
 
 O arquivo application.properties não é enviado ao GitHub por segurança.
 
@@ -71,6 +72,7 @@ Depois ajuste:
 ---
 
 ##  Docker
+Opção 2 - Usar Docker
 
 Para subir o banco de dados:
 
@@ -191,4 +193,4 @@ Isso irá subir o SQL Server em container.
 
 Guilherme Rodrigues
 
->>>>>>> 762cc785ea69d214a31a8c5621e690d88db369c9
+
