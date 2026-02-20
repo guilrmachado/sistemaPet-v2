@@ -1,5 +1,6 @@
 package com.guilherme.sistema_pet.controller;
 import com.guilherme.sistema_pet.model.PetModel;
+import com.guilherme.sistema_pet.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,63 +14,43 @@ import java.util.Optional;
 @RequestMapping("/pets")
 public class PetController {
 
-    @Autowired
-    private PetRepository petRepository;
+    private final PetService service;
+
+    public PetController(PetService service){
+        this.service = service;
+    }
 
     @PostMapping
     public ResponseEntity<PetModel> criarPet(@RequestBody PetModel pet) {
-        PetModel novoPet = petRepository.save(pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(novoPet);
+        PetModel novoPet = service.salvar(pet);
+        return ResponseEntity.ok(novoPet);
     }
 
 
     @GetMapping
     public ResponseEntity<List<PetModel>> listarPets() {
-        List<PetModel> pets = petRepository.findAll();
-        return ResponseEntity.status(HttpStatus.OK).body(pets);
+        List<PetModel> pets = service.listar();
+        return ResponseEntity.ok(pets);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarPet(@PathVariable Long id) {
-        Optional<PetModel> pet = petRepository.findById(id);
-
-        if (pet.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Pet não encontrado");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(pet.get());
+    public ResponseEntity<PetModel> buscarPet(@PathVariable Long id) {
+        PetModel pet = service.buscarPorId(id);
+        return ResponseEntity.ok(pet);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> atualizar(@PathVariable Long id, @RequestBody PetModel pet) {
 
-        Optional<PetModel> petExistente = petRepository.findById(id);
-
-        if (petExistente.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Pet não encontrado");
-        }
-
-        pet.setId(id);
-        PetModel petAtualizado = petRepository.save(pet);
-
-        return ResponseEntity.status(HttpStatus.OK).body(petAtualizado);
+        PetModel petExistente = service.atualizar(id,pet);
+        return ResponseEntity.ok(petExistente);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deletarPet(@PathVariable Long id) {
-        Optional<PetModel> pet = petRepository.findById(id);
-
-        if (pet.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body("Pet não encontrado");
-        }
-
-        petRepository.delete(pet.get());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body("Pet deletado com sucesso");
+        service.deletar(id);
+        return ResponseEntity.ok("Pet deletado com sucesso");
     }
 
 }
