@@ -15,7 +15,7 @@ public class PetService {
     }
 
     public PetModel salvar(PetModel pet){
-        if (pet.getPeso() > 60 || pet.getPeso() < 0.5){
+        if (pet.getPeso() == null || pet.getPeso() > 60 || pet.getPeso() < 0.5){
             throw new IllegalArgumentException("Peso inválido.");
         }
         if (pet.getNome() == null || pet.getNome().trim().isEmpty()) {
@@ -29,7 +29,7 @@ public class PetService {
         if (pet.getNome().trim().split("\\s+").length < 2) {
             throw new IllegalArgumentException("Digite nome e sobrenome.");
         }
-        if (pet.getIdade() > 20) {
+        if (pet.getIdade() == null || pet.getIdade() > 20) {
             throw new IllegalArgumentException("Idade inválida.");
         }
 
