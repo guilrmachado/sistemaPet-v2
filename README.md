@@ -1,196 +1,112 @@
 
-#  Sistema PET API
+# Sistema Pet API
 
-##  Descrição
-API RESTful para gerenciamento de pets.  
-Permite cadastrar, listar, atualizar e remover pets de um banco de dados SQL Server.
+API REST desenvolvida com Java e Spring Boot para gerenciamento de pets.
 
-Este projeto é a evolução de uma versão anterior sem Spring.  
-Agora utiliza Spring Boot, Docker e JPA.
+Projeto criado com foco em arquitetura em camadas, aplicação de regras de negócio, tratamento adequado de exceções e testes unitários — simulando um ambiente real de desenvolvimento backend.
 
----
+⸻
 
-##  Tecnologias Utilizadas
+## Funcionalidades
 
-- Java
-- Spring Boot
-- Spring Web
-- Spring Data JPA
-- Maven
-- Docker
-- SQL Server
-- Postman (para testes)
+• CRUD completo de pets
+• Validação de regras de negócio
+• Atualização parcial com PATCH
+• Tratamento global de exceções
+• Retorno adequado de status HTTP
+• Testes unitários na camada de serviço
 
----
+⸻
 
-##  Estrutura do Projeto
+##  Regras de Negócio
 
+• Nome deve conter nome e sobrenome
+• Peso deve estar entre 0.5kg e 60kg
+• Idade deve ser menor ou igual a 20 anos
+• Campos obrigatórios não podem ser nulos
+• Operações inválidas retornam status HTTP apropriado (400, 404, etc.)
 
-src
-    main
-     java
-       com.guilherme.sistema_pet
-       controller
-       model
-       repository
-       service
-    resources
-    application.properties
-    application-example.properties
+⸻
 
+## Tecnologias Utilizadas
 
-- model → Entidades do banco de dados
-- repository → Interfaces JPA
-- controller → Endpoints REST
-- service → Regras de negócio (em desenvolvimento)
+• Java
+• Spring Boot
+• Spring Web
+• Spring Data JPA
+• SQL Server
+• Docker
+• Maven
+• JUnit 5
+• Mockito
 
----
+⸻
 
-##  Configuração
+##  Arquitetura
 
-### Banco de Dados
-Opção 1 - Usar banco local
+O projeto segue arquitetura em camadas:
+• Controller → Exposição dos endpoints REST
+• Service → Regras de negócio e validações
+• Repository → Persistência com Spring Data JPA
+• Model → Entidades do domínio
 
-Configure o application.properties com seu SQL Server
+Separação clara de responsabilidades, facilitando manutenção e testabilidade.
 
-O arquivo application.properties não é enviado ao GitHub por segurança.
+⸻
 
-Use o arquivo:
+##  Configuração do Banco
 
-application-example.properties
+### 🔹 Opção 1 - Banco local
+1. Copie application-example.properties
+2. Renomeie para application.properties
+3. Configure usuário, senha e nome do banco
 
-Copie ele e renomeie para:
+O arquivo application.properties está no .gitignore.
 
-application.properties
+⸻
 
-Depois ajuste:
+### 🔹 Opção 2 - Usando Docker
 
-- username
-- password
-- nome do banco
-
----
-
-##  Docker
-Opção 2 - Usar Docker
-
-Para subir o banco de dados:
-
-docker-compose up -d
-
----
-
-##  Como Rodar o Projeto
-
-1. Subir o Docker
-2. Configurar application.properties
-3. Abrir o projeto no IntelliJ
-4. Rodar a aplicação Spring Boot
-5. Testar endpoints no Postman
-
----
-
-##  Endpoints Principais
-
-### Criar Pet
-
-POST /pets
-
-### Listar Pets
-
-GET /pets
-
-### Buscar Pet por ID
-
-GET /pets/{id}
-
-### Atualizar Pet
-
-PUT /pets/{id}
-
-### Atualização Parcial
-
-PATCH /pets/{id}
-
-### Deletar Pet
-
-DELETE /pets/{id}
-
----
-
-##  Observações
-
-- Projeto em evolução
-- Camada Service será adicionada
-- Testes unitários serão implementados
-- Senhas reais não são armazenadas no repositório
-- Arquivo application.properties está no .gitignore
-
----
-
-##  Autor
-
-Guilherme Machado
-=======
-# 🐾 Sistema Pet v2
-
-Projeto em Java para cadastro de pets, criado com foco em aprendizado de backend e preparação para estágio.
-
-## Tecnologias utilizadas
-
-- Java
-- Maven
-- Docker
-- SQL Server
-- JDBC
-
-## Objetivo
-
-Refatoração da primeira versão do projeto adicionando:
-
-- Gerenciamento de dependências com Maven
-- Banco de dados com SQL Server
-- Containerização com Docker
-- Estrutura preparada para futura integração com Spring
-
-Atualmente o sistema ainda utiliza arquivos .txt para persistência de dados.
-A estrutura com banco de dados já foi preparada com Docker e SQL Server.
-A próxima etapa é migrar a persistência para o banco.
-
-## Estrutura do Projeto
-
-src/main/java -> Classes principais
-docker-compose.yml -> Banco de dados SQL Server
-pom.xml -> Dependências Maven
-
-
-## Como rodar o banco de dados
-
-É necessário ter Docker instalado.
-Certifique-se de que o Docker esteja aberto.
-
-No terminal, dentro da pasta do projeto:
+Com Docker em execução, rode na raiz do projeto:
 
 docker compose up -d
 
-Isso irá subir o SQL Server em container.
+O SQL Server será iniciado na porta 1433.
 
-## Banco de Dados
+⸻
 
-- Tipo: SQL Server
-- Porta padrão: 1433
-- Usuário: sa
-- Senha: definida no docker-compose
+##  Execução
+1. Configurar o banco (local ou Docker)
+2. Executar a aplicação Spring Boot
+3. Testar endpoints via Postman
 
-## Próximos passos
+⸻
 
-- Integração com Spring Boot
-- API REST
-- CRUD completo
-- Testes unitários
+##  Endpoints
+
+Criar Pet - POST /pets
+Listar Pets - GET /pets
+Buscar Pet por ID - GET /pets/{id}
+Atualizar Pet - PUT /pets/{id}
+Atualização Parcial - PATCH /pets/{id}
+Deletar Pet - DELETE /pets/{id}
+
+⸻
+
+##  Testes
+
+Testes unitários implementados na camada de Service utilizando JUnit 5 e Mockito.
+
+Cobertura de:
+• Criação válida
+• Validações de regra de negócio
+• Lançamento de exceções
+• Garantia de que o repository não é chamado em cenários inválidos
+
+⸻
 
 ## Autor
 
-Guilherme Rodrigues
-
-
+Guilherme Machado
+Estudante de Ciência da Computação – UERJ
+Foco em Backend Java e Spring
