@@ -6,10 +6,11 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "Senha123!"
+      MSSQL_PID: "Express"
     ports:
       - "1433:1433"
     volumes:
-      - sql_data:/var/opt/mssql
-    restart: always
+      - pet_data:/var/opt/mssql
+    restart: unless-stopped
 volumes:
-  sql_data:
+  pet_data:

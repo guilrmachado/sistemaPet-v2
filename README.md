@@ -77,23 +77,24 @@ Separação clara de responsabilidades, facilitando manutenção e testabilidade
 
 ##  Configuração do Banco
 
-###  Opção 1 - Banco local
-1. Copie application-example.properties
-2. Renomeie para application.properties
-3. Configure usuário, senha e nome do banco
-
-O arquivo application.properties está no .gitignore.
-
-
-
-### Opção 2 - Usando Docker
-
-Com Docker em execução, rode na raiz do projeto:
+Com Docker Desktop em execução, rode na raiz do projeto:
 
 docker compose up -d
 
-O SQL Server será iniciado na porta 1433.
+O SQL Server ficará disponível em: localhost,1433
 
+Crie o banco(apenas na primeira vez):
+
+CREATE DATABASE sistemaPet;
+
+
+##  Configuração da aplicação
+
+1. Copie application-example.properties
+2. Renomeie para application.properties
+3. Configure usuário e senha
+
+O arquivo application.properties está no .gitignore.
 
 
 ##  Execução
